@@ -1,7 +1,7 @@
 !!! 5
 %html{ :lang => "en"}
   %head
-    %title= "databasedotcom-oauth2"
+    %title= "jquery mobile w/ databasedotcom-oauth2"
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1"}
     %link{ :href => url("/jquery.mobile-1.1.0.css"), :media => "screen", :rel => "stylesheet", :type => "text/css" }
     %script{ :src => url("/jquery-1.7.2.js")}
@@ -10,8 +10,8 @@
   %body
     #page{:"data-role" => "page", :"data-title" => "databasedotcom-oauth2"}
       #header{ :"data-role" => "header"}
-        %h1 databasedotcom-oauth2
+        %h1 jquery mobile w/ databasedotcom-oauth2
       #content{ :"data-role" => "content"}
         =yield
-        %a{:href => "https://github.com/richardvanhook/oauth-salesforce-example"}
+        %a{:href => "https://github.com/richardvanhook/databasedotcom-oauth2-sinatra-jqm"}
           %img{:style => "position: absolute; top: 0; right: 0; border: 0;", :src => "https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png", :alt => "Fork me on GitHub"}

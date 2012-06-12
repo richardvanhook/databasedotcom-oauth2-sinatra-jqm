@@ -58,6 +58,11 @@ module Databasedotcom
         end
       end
 
+      get '/unauthenticate' do
+        request.env['rack.session'] = {}
+        redirect to("/")
+      end
+
       get '/error' do
         haml :error, :locals => {:title => params[:title], :message => params[:message]}
       end
