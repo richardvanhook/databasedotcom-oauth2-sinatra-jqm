@@ -1,10 +1,8 @@
-source "http://rubygems.org"
+source :rubygems
 gem "thin"
 gem "rack-ssl"
 gem "sinatra"
-gem "oauth2"
-gem "addressable"
-gem "databasedotcom"
+gem "databasedotcom-oauth2", ">= 0.1"
 gem "haml"
 
 group :development do

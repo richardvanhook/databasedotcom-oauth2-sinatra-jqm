@@ -6,6 +6,10 @@ GEM
     databasedotcom (1.3.0)
       json
       multipart-post (~> 1.1)
+    databasedotcom-oauth2 (0.1.0)
+      addressable
+      databasedotcom
+      oauth2
     eventmachine (0.12.10)
     excon (0.14.0)
     faraday (0.8.1)
@@ -55,11 +59,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  addressable
-  databasedotcom
+  databasedotcom-oauth2 (>= 0.1)
   haml
   heroku
-  oauth2
   rack-ssl
   sinatra
   thin

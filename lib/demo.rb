@@ -2,6 +2,8 @@ require "sinatra/base"
 require "rack/ssl" unless ENV['RACK_ENV'] == "development"
 require "base64"
 require "databasedotcom"
+require "addressable/uri"
+require "databasedotcom-oauth2"
 require "haml"
 
 module Databasedotcom
@@ -12,7 +14,7 @@ module Databasedotcom
       configure do
         enable :logging
         set :app_file            , __FILE__
-        set :root                , File.expand_path("../../../..",__FILE__)
+        set :root                , File.expand_path("../..",__FILE__)
         set :port                , ENV['PORT']
         set :raise_errors        , Proc.new { false }
         set :show_exceptions     , true
@@ -43,12 +45,17 @@ module Databasedotcom
       use Rack::Session::Cookie
       use Databasedotcom::OAuth2::WebServerFlow, 
         :endpoints            => settings.endpoints, 
-        :token_encryption_key => settings.token_encryption_key
+        :token_encryption_key => settings.token_encryption_key,
+        :path_prefix          => "/auth/sfdc",
+        :on_failure           => nil,
+        :scope_override       => true,
+        :display_override     => true,
+        :immediate_override   => true
 
       # Routes
       get '/authenticate' do
     	  if unauthenticated?
-          haml :terms, :layout => :login, :locals => { :url => '/auth/salesforce', :state => params[:state] }
+          haml :terms, :layout => :login, :locals => { :url => '/auth/sfdc', :state => params[:state] }
         else
           redirect to(sanitize_state(params[:state])) 
         end
