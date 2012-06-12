@@ -13,5 +13,7 @@
         %h1 jquery mobile w/ databasedotcom-oauth2
       #content{ :"data-role" => "content"}
         =yield
+        - if !unauthenticated?
+          %a{:"data-role" => "button", :"data-icon" => "delete", :"data-theme" => "d", :"data-ajax"=>"false", :href => url("/unauthenticate")} Log out (from this app only, not salesforce.com)
         %a{:href => "https://github.com/richardvanhook/databasedotcom-oauth2-sinatra-jqm"}
           %img{:style => "position: absolute; top: 0; right: 0; border: 0;", :src => "https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png", :alt => "Fork me on GitHub"}
