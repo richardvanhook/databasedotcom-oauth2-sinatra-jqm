@@ -7,7 +7,6 @@
   #{userinfo['organization_id']}
   %br
   #{token['instance_url']} 
-
 %div{:class=>"content-primary"}
   = htmlize_hash("You",userinfo)
   %div{:"data-role" => "collapsible", :"data-content-theme"=>"c"}
@@ -17,5 +16,3 @@
         - sobjects.each do |sobject_name|
           %li
             %a{:href => "/describe/#{sobject_name}"} #{sobject_name}
-
-%a{:"data-role" => "button", :"data-icon" => "delete", :"data-theme" => "d", :"data-ajax"=>"false", :href => url("/unauthenticate")} Log out (from this app only, not salesforce.com)
