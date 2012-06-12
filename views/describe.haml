@@ -1,0 +1,17 @@
+%div{:class=>"content-primary"}
+  %table
+    %thead
+      %tr
+        %th{:scope => "col"} Name
+        %th{:scope => "col"} Label
+        %th{:scope => "col"} Type
+        %th{:scope => "col"} Createable
+        %th{:scope => "col"} Updateable
+    %tbody
+      - typemap.each do |k,v|
+        %tr
+          %th{:scope => "col"} #{k}
+          %td{:scope => "col"} #{v[:label]}
+          %td{:scope => "col"} #{v[:type]}
+          %td{:scope => "col"} #{v[:createable?]}
+          %td{:scope => "col"} #{v[:updateable?]}

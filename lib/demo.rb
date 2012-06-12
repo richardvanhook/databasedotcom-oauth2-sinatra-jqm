@@ -18,9 +18,6 @@ module Databasedotcom
         set :port                , ENV['PORT']
         set :raise_errors        , Proc.new { false }
         set :show_exceptions     , true
-        # It's uber important that the below encrypted cookie secret
-        #   is sufficiently strong.  Suggest running following to set appropriately:
-        # $ ruby -ropenssl -rbase64 -e "puts Base64.strict_encode64(OpenSSL::Random.random_bytes(16).to_str)"
         set :token_encryption_key, Base64.strict_decode64(ENV['COOKIE_SECRET'])
         set :endpoints           , nil
         set :default_endpoint    , "login.salesforce.com"
@@ -61,13 +58,31 @@ module Databasedotcom
         end
       end
 
+      get '/error' do
+        haml :error, :locals => {:title => params[:title], :message => params[:message]}
+      end
+      
       get '/terms' do
         haml :terms
       end
       
+      get '/describe/:obj' do
+        authenticate!
+        begin
+          haml :describe, :locals => {:typemap => client.materialize(params[:obj]).type_map.sort}
+        rescue Exception => e
+          return error(e)
+        end
+      end
+      
       get '/*' do
         authenticate!
-        haml :info, :locals => {:userinfo => userinfo}
+        begin
+          haml :list, :locals => {:userinfo => userinfo, :sobjects => client.list_sobjects, :token => token}
+        rescue Exception => e
+          return error(e)
+        end
+        
       end
 
       # Helpers
@@ -76,11 +91,12 @@ module Databasedotcom
           env['databasedotcom.client']
         end
 
+        def token
+          env['databasedotcom.token']
+        end
+
         def userinfo
-          token = env['databasedotcom.token']
-          userinfo = nil
-          userinfo = token.post(token['id']).parsed unless token.nil?
-          userinfo
+          token.post(token['id']).parsed unless token.nil?
         end
 
       	def unauthenticated?
@@ -95,9 +111,43 @@ module Databasedotcom
       	  end
       	end
 
+        def error(exception)
+          _log_exception(exception)
+          new_path = Addressable::URI.parse("/error")
+          new_path.query_values={:title => "An error occurred", :message => exception.message}
+          [302, {'Location' => new_path.to_s, 'Content-Type'=> 'text/html'}, []]
+        end
+        
         def sanitize_state(state = nil)
           state = "/" if state.nil? || state.strip.empty?
           state
+        end
+        
+        def htmlize_hash(title, hash)
+          hashes = nil
+          strings = nil
+          hash.each_pair do |key, value|
+            case value
+            when Hash
+              hashes ||= ""
+              hashes << htmlize_hash(key,value)
+            else
+              strings ||= "<table>"
+              strings << "<tr><td>#{key}</th><td>#{value}</td></tr>"
+            end
+          end
+          output = "<div data-role='collapsible' data-content-theme='c'><h3>#{title}</h3>"
+          output << strings unless strings.nil?
+          output << "</table>" unless strings.nil?
+          output << hashes unless hashes.nil?
+          output << "</div>"
+          output
+        end
+
+        def _log_exception(exception)
+          STDERR.puts "\n\n#{exception.class} (#{exception.message}):\n    " +
+            exception.backtrace.join("\n    ") +
+            "\n\n"
         end
         
       end

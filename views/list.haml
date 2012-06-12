@@ -1,0 +1,21 @@
+%div{:class => "ui-body"}
+  %img{:align => "left", :src => userinfo['photos']['thumbnail'] + "?oauth_token=#{token.token}", :style => "margin-right: 12px"}
+  %strong #{userinfo['display_name']}
+  %br
+  #{userinfo['username']}
+  %br
+  #{userinfo['organization_id']}
+  %br
+  #{token['instance_url']} 
+
+%div{:class=>"content-primary"}
+  = htmlize_hash("You",userinfo)
+  %div{:"data-role" => "collapsible", :"data-content-theme"=>"c"}
+    %h3 Objects (#{sobjects.size})
+    %p
+      %ul{:"data-role" => "listview"}
+        - sobjects.each do |sobject_name|
+          %li
+            %a{:href => "/describe/#{sobject_name}"} #{sobject_name}
+
+%a{:"data-role" => "button", :"data-icon" => "delete", :"data-theme" => "d", :"data-ajax"=>"false", :href => url("/unauthenticate")} Log out (from this app only, not salesforce.com)
