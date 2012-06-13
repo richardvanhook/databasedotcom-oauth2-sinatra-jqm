@@ -49,6 +49,9 @@ module Databasedotcom
         :display_override     => true,
         :immediate_override   => true
 
+      # mixes in client, me, authenticated?, etc.
+      include Databasedotcom::OAuth2::Helpers
+
       # Routes
       get '/authenticate' do
     	  if unauthenticated?
