@@ -5,7 +5,7 @@
       %h3 #{me.name}
       %p #{me.username}
 %div{:class=>"content-primary"}
-  = htmlize_hash("You",me)
+  = htmlize_hash("Me",me)
   %div{:"data-role" => "collapsible", :"data-content-theme"=>"c"}
     %h3 Objects (#{sobjects.size})
     %p
