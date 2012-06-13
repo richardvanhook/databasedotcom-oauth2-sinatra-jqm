@@ -1,8 +1,8 @@
 require "sinatra/base"
-require "rack/ssl" unless ENV['RACK_ENV'] == "development"
+require "rack/ssl" unless ENV['RACK_ENV'] == "development" # only utilized when deployed to heroku
 require "base64"
-require "databasedotcom"
 require "addressable/uri"
+require "databasedotcom"
 require "databasedotcom-oauth2"
 require "haml"
 
@@ -37,8 +37,8 @@ module Databasedotcom
       }
       settings.endpoints.default = endpoints[settings.default_endpoint]
 
-      # Rack Stack
-      use Rack::SSL unless ENV['RACK_ENV'] == "development"
+      # Rack Middleware
+      use Rack::SSL unless ENV['RACK_ENV'] == "development" # only utilized when deployed to heroku
       use Rack::Session::Cookie
       use Databasedotcom::OAuth2::WebServerFlow, 
         :endpoints            => settings.endpoints, 
@@ -83,7 +83,7 @@ module Databasedotcom
       get '/*' do
         authenticate!
         begin
-          haml :list, :locals => {:userinfo => userinfo, :sobjects => client.list_sobjects, :token => token}
+          haml :list, :locals => {:sobjects => client.list_sobjects}
         rescue Exception => e
           return error(e)
         end
@@ -92,22 +92,6 @@ module Databasedotcom
 
       # Helpers
       helpers do
-        def client
-          env['databasedotcom.client']
-        end
-
-        def token
-          env['databasedotcom.token']
-        end
-
-        def userinfo
-          token.post(token['id']).parsed unless token.nil?
-        end
-
-      	def unauthenticated?
-      	  client.nil?
-    	  end
-
       	def authenticate!
       	  if unauthenticated?
             uri = Addressable::URI.new

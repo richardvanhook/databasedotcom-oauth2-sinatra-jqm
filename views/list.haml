@@ -1,14 +1,14 @@
 %div{:class => "ui-body"}
-  %img{:align => "left", :src => userinfo['photos']['thumbnail'] + "?oauth_token=#{token.token}", :style => "margin-right: 12px"}
-  %strong #{userinfo['display_name']}
+  %img{:align => "left", :src => me.photo.largePhotoUrl, :style => "margin-right: 12px"}
+  %strong #{me.name}
   %br
-  #{userinfo['username']}
+  #{me.username}
   %br
-  #{userinfo['organization_id']}
+  #{client.org_id}
   %br
-  #{token['instance_url']} 
+  #{client.instance_url} 
 %div{:class=>"content-primary"}
-  = htmlize_hash("You",userinfo)
+  = htmlize_hash("You",me)
   %div{:"data-role" => "collapsible", :"data-content-theme"=>"c"}
     %h3 Objects (#{sobjects.size})
     %p
