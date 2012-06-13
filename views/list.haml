@@ -1,7 +1,7 @@
 %ul{:"data-role" => "listview", :"data-theme" => "d", :"data-inset" => "true", :"data-count-theme" => "e"}
   %li
-    %a{:href => "", :"data-ajax"=>"false"} 
-      %img{:src =>  :src => me.photo.largePhotoUrl + "?oauth_token=#{client.oauth_token}"}
+    %a{:href => token.params['id'], :"data-ajax"=>"false"} 
+      %img{:src => me.photo.largePhotoUrl + "?oauth_token=#{client.oauth_token}"}
       %h3 #{me.name}
       %p #{me.username}
 %div{:class=>"content-primary"}
