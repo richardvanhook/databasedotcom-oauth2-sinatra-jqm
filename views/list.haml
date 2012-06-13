@@ -1,12 +1,9 @@
-%div{:class => "ui-body"}
-  %img{:align => "left", :src => me.photo.largePhotoUrl + "?oauth_token=#{client.oauth_token}", :style => "margin-right: 12px"}
-  %strong #{me.name}
-  %br
-  #{me.username}
-  %br
-  #{client.org_id}
-  %br
-  #{client.instance_url} 
+%ul{:"data-role" => "listview", :"data-theme" => "d", :"data-inset" => "true", :"data-count-theme" => "e"}
+  %li
+    %a{:href => userinfo['urls']['profile'], :"data-ajax"=>"false"} 
+      %img{:src =>  :src => me.photo.largePhotoUrl + "?oauth_token=#{client.oauth_token}"}
+      %h3 #{me.name}
+      %p #{me.username}
 %div{:class=>"content-primary"}
   = htmlize_hash("You",me)
   %div{:"data-role" => "collapsible", :"data-content-theme"=>"c"}
