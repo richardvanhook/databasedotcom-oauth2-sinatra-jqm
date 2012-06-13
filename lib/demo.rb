@@ -24,7 +24,7 @@ module Databasedotcom
         set :displays            , %w(page popup touch)
         set :default_display     , "page"
         set :scopes              , %w(api chatter_api full id refresh_token visualforce web)
-        set :default_scopes      , %w(api id refresh_token)
+        set :default_scopes      , %w(api chatter_api id refresh_token)
       end
 
       settings.endpoints = {
