@@ -1,5 +1,5 @@
 %div{:class => "ui-body"}
-  %img{:align => "left", :src => me.photo.largePhotoUrl, :style => "margin-right: 12px"}
+  %img{:align => "left", :src => me.photo.largePhotoUrl + "?oauth_token=#{client.oauth_token}", :style => "margin-right: 12px"}
   %strong #{me.name}
   %br
   #{me.username}
