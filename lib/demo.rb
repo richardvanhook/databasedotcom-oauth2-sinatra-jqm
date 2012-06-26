@@ -39,7 +39,7 @@ module Databasedotcom
 
       # Rack Middleware
       use Rack::SSL unless ENV['RACK_ENV'] == "development" # only utilized when deployed to heroku
-      use Rack::Session::Cookie
+      use Rack::Session::Cookie, :expire_after => 60*60*7    # holds oauth2 token in encrypted, serialized form
       use Databasedotcom::OAuth2::WebServerFlow, 
         :endpoints            => settings.endpoints, 
         :token_encryption_key => settings.token_encryption_key,
