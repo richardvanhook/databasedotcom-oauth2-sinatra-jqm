@@ -43,7 +43,7 @@ module Databasedotcom
       use Databasedotcom::OAuth2::WebServerFlow, 
         :endpoints            => settings.endpoints, 
         :token_encryption_key => settings.token_encryption_key,
-        #:path_prefix          => "/auth/sfdc",
+        :path_prefix          => "/auth/sfdc",
         :on_failure           => nil,
         :scope_override       => true,
         :display_override     => true,
@@ -55,7 +55,7 @@ module Databasedotcom
       # Routes
       get '/authenticate' do
     	  if unauthenticated?
-          haml :terms, :layout => :login, :locals => { :url => '/auth/salesforce', :state => params[:state] }
+          haml :terms, :layout => :login, :locals => { :url => '/auth/sfdc', :state => params[:state] }
         else
           redirect to(sanitize_state(params[:state])) 
         end
