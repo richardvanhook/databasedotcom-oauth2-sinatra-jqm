@@ -6,48 +6,35 @@ GEM
     databasedotcom (1.3.1)
       json
       multipart-post (~> 1.1)
-    databasedotcom-oauth2 (0.1.7)
+    databasedotcom-oauth2 (0.2.0)
       addressable
       databasedotcom
       gibberish
       hashie
       oauth2
     eventmachine (0.12.10)
-    excon (0.14.0)
     faraday (0.8.1)
       multipart-post (~> 1.1)
     gibberish (1.2.0)
     haml (3.1.6)
     hashie (1.2.0)
-    heroku (2.26.6)
-      heroku-api (~> 0.2.4)
-      launchy (>= 0.3.2)
-      netrc (~> 0.7.2)
-      rest-client (~> 1.6.1)
-      rubyzip
-    heroku-api (0.2.4)
-      excon (~> 0.14.0)
     httpauth (0.1)
     json (1.7.3)
-    launchy (2.1.0)
-      addressable (~> 2.2.6)
-    mime-types (1.18)
+    jwt (0.1.4)
+      json (>= 1.2.4)
     multi_json (1.3.6)
     multipart-post (1.1.5)
-    netrc (0.7.4)
-    oauth2 (0.7.1)
+    oauth2 (0.8.0)
       faraday (~> 0.8)
       httpauth (~> 0.1)
+      jwt (~> 0.1.4)
       multi_json (~> 1.0)
-      rack (~> 1.4)
+      rack (~> 1.2)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
     rack-ssl (1.3.2)
       rack
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
-    rubyzip (0.9.8)
     sinatra (1.3.2)
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
@@ -57,16 +44,13 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     tilt (1.3.3)
-    wirble (0.1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  databasedotcom-oauth2 (>= 0.1.7)
+  databasedotcom-oauth2 (>= 0.2.0)
   haml
-  heroku
   rack-ssl
   sinatra
   thin
-  wirble

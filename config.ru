@@ -1,3 +1,3 @@
 #\ -w -p 5000
-require './lib/demo'
-run Databasedotcom::OAuth2::WebServerFlowDemoApp.new
+require './lib/app'
+run App.new
