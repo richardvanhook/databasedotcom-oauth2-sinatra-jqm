@@ -21,7 +21,7 @@ class App < Sinatra::Base
     set :show_exceptions     , true
     set :token_encryption_key, Base64.strict_decode64(ENV['TOKEN_ENCRYPTION_KEY'])
     set :endpoints           , nil
-    set :default_endpoint    , "login.salesforce.com"
+    set :default_endpoint    , :"login.salesforce.com"
     set :displays            , %w(page popup touch mobile)
     set :default_display     , "page"
     set :scopes              , %w(api chatter_api full id refresh_token visualforce web)
