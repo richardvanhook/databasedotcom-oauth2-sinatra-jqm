@@ -51,6 +51,12 @@
                       %input{:type => "checkbox", :name => "scope", :id => "options[scope|#{scope}]", :value => "#{scope}", :class => "custom", :checked => settings.default_scopes.include?(scope)}
                       %label{:for => "options[scope|#{scope}]"} #{scope}
                 %div{:"data-role" => "fieldcontain"}
+                  %fieldset{:"data-role" => "controlgroup"}
+                    %legend Prompt
+                    - settings.prompts.each do |prompt|
+                      %input{:type => "checkbox", :name => "prompt", :id => "options[prompt|#{prompt}]", :value => "#{prompt}", :class => "custom", :checked => false}
+                      %label{:for => "options[prompt|#{prompt}]"} #{prompt}
+                %div{:"data-role" => "fieldcontain"}
                   %label{:for => "options[immediate]"} Immediate
                   %select{:id => "options[immediate]", :name => "immediate", :"data-role" => "slider"}
                     %option{:value => "false"} No

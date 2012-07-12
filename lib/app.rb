@@ -48,7 +48,7 @@ class App < Sinatra::Base
     :path_prefix          => "/auth/salesforce",
     :on_failure           => nil,
     :debugging            => true,
-    :prompt               => "login consent",
+    :prompt_override      => true,
     :scope_override       => true,
     :display_override     => true,
     :immediate_override   => true
@@ -66,7 +66,7 @@ class App < Sinatra::Base
   end
 
   get '/unauthenticate' do
-    request.env['rack.session'] = {}
+    client.logout if authenticated?
     redirect to("/")
   end
 
